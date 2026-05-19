@@ -30,5 +30,6 @@ echo "[Deploy] Applying Kubernetes manifests..."
 kubectl apply -f kubernetes/database-pvc.yaml
 kubectl apply -f kubernetes/server-deployment.yaml
 kubectl apply -f kubernetes/client-deployment.yaml
+kubectl apply -f kubernetes/ingress.yaml
 
 echo "[Deploy] Done. Service running on port ${FRONTEND_PORT}."
