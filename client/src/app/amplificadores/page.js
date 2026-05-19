@@ -1,42 +1,16 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "../../components/Navbar";
+import { useCart } from "../../context/CartContext";
 
 export default function AmplificadoresPage() {
+  const { addToCart } = useCart();
+
   return (
     <main className="min-h-screen bg-[#f8f9fa]">
-      {/* Navbar Minimalista */}
-      <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            <div className="flex-shrink-0 flex items-center cursor-pointer">
-              <Link href="/">
-                <span className="text-xl font-black tracking-tighter text-gray-900 uppercase hover:text-blue-600 transition-colors">
-                  Nevermind <span className="font-medium text-gray-400">The Music</span>
-                </span>
-              </Link>
-            </div>
-            <div className="hidden md:flex space-x-10">
-              <Link href="/" className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Guitarras</Link>
-              <Link href="/bajos" className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Bajos</Link>
-              <Link href="/amplificadores" className="text-sm font-semibold text-gray-900 hover:text-blue-600 transition-colors">Amplificadores</Link>
-              <Link href="/accesorios" className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Accesorios</Link>
-            </div>
-            {/* Icons */}
-            <div className="flex items-center space-x-6">
-              <Link href="/login" className="text-gray-400 hover:text-gray-900 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              </Link>
-              <button className="text-gray-400 hover:text-gray-900 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              </button>
-              <button className="text-gray-400 hover:text-gray-900 transition-colors relative">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-                <span className="absolute -top-1 -right-2 bg-blue-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">2</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
+
 
       {/* Header Amplificadores */}
       <div className="bg-white border-b border-gray-100">
@@ -99,7 +73,7 @@ export default function AmplificadoresPage() {
                   <span className="text-xs text-gray-400 block uppercase font-bold tracking-wider mb-1">Precio</span>
                   <span className="text-2xl font-black text-gray-900">1.890€</span>
                 </div>
-                <button className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-gray-900 transition-colors shadow-lg shadow-blue-600/30">
+                <button onClick={() => addToCart({ id: 'a1', name: 'Twin Reverb 65\' Reissue', price: 1890, image: '/amp_fender_white.png', category: 'Amplificadores' })} className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-gray-900 transition-colors shadow-lg shadow-blue-600/30">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                 </button>
               </div>
@@ -127,7 +101,7 @@ export default function AmplificadoresPage() {
                   <span className="text-xs text-gray-400 block uppercase font-bold tracking-wider mb-1">Precio</span>
                   <span className="text-2xl font-black text-gray-900">2.350€</span>
                 </div>
-                <button className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-gray-900 transition-colors shadow-lg shadow-blue-600/30">
+                <button onClick={() => addToCart({ id: 'a2', name: 'Orange Rockerverb 100', price: 2350, image: '/amp_orange_white.png', category: 'Amplificadores' })} className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-gray-900 transition-colors shadow-lg shadow-blue-600/30">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                 </button>
               </div>
@@ -152,7 +126,7 @@ export default function AmplificadoresPage() {
                   <span className="text-xs text-gray-400 block uppercase font-bold tracking-wider mb-1">Precio</span>
                   <span className="text-2xl font-black text-gray-900">1.450€</span>
                 </div>
-                <button className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-gray-900 transition-colors shadow-lg shadow-blue-600/30">
+                <button onClick={() => addToCart({ id: 'a3', name: 'Boutique Vintage 30W', price: 1450, image: '/vintage_amp_white.png', category: 'Amplificadores' })} className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-gray-900 transition-colors shadow-lg shadow-blue-600/30">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                 </button>
               </div>
