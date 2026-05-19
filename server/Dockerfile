@@ -2,6 +2,7 @@
 FROM node:20-slim AS builder
 WORKDIR /app
 COPY package*.json ./
+RUN apt-get update && apt-get install -y python3 make g++
 RUN npm ci
 COPY . .
 RUN npm run build
