@@ -6,7 +6,7 @@ import { User } from './users/user.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'sqlite' as any,
+      type: 'better-sqlite3',
       database: process.env.DATABASE_PATH || 'database.sqlite', // Configurable para persistencia en producción
       entities: [User],
       synchronize: true, // Auto-crea las tablas (ideal para desarrollo)
