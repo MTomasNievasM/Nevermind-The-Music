@@ -12,6 +12,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 # Install temporary build tools to compile native modules (sqlite3 & bcrypt) if needed
+COPY package*.json ./
 RUN apt-get update && apt-get install -y python3 make g++ \
     && npm ci --only=production \
     && apt-get purge -y python3 make g++ \
