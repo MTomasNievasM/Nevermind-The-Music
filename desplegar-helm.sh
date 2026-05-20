@@ -3,6 +3,9 @@
 
 set -e
 
+# Exportar configuración de Kubernetes para K3s en VPS
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+
 VPS_IP="187.33.146.27"
 BACKEND_PORT="30082"
 FRONTEND_PORT="30081"
