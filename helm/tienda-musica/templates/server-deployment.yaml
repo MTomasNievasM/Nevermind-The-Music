@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: backend
+spec:
+  replicas: {{ .Values.server.replicaCount }}
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: server
+          image: "{{ .Values.server.image.repository }}:{{ .Values.server.image.tag }}"
+          imagePullPolicy: {{ .Values.server.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.server.containerPort }}
+          env:
+            - name: PORT
+              value: {{ .Values.server.containerPort | quote }}
+            - name: DATABASE_PATH
+              value: {{ .Values.server.env.databasePath | quote }}
+            - name: NODE_ENV
+              value: {{ .Values.server.env.nodeEnv | quote }}
+          volumeMounts:
+            - name: sqlite-storage
+              mountPath: /app/data
+      volumes:
+        - name: sqlite-storage
+          persistentVolumeClaim:
+            claimName: {{ .Values.database.pvc.name }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: {{ .Values.global.namespace }}
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: {{ .Values.server.service.port }}
+      targetPort: {{ .Values.server.containerPort }}
+      nodePort: {{ .Values.server.service.nodePort }}
+  type: NodePort

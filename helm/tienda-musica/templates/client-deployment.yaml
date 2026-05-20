@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: frontend
+spec:
+  replicas: {{ .Values.client.replicaCount }}
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: client
+          image: "{{ .Values.client.image.repository }}:{{ .Values.client.image.tag }}"
+          imagePullPolicy: {{ .Values.client.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.client.containerPort }}
+          env:
+            - name: PORT
+              value: {{ .Values.client.containerPort | quote }}
+            - name: NODE_ENV
+              value: {{ .Values.client.env.nodeEnv | quote }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: {{ .Values.global.namespace }}
+spec:
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: {{ .Values.client.service.port }}
+      targetPort: {{ .Values.client.containerPort }}
+      nodePort: {{ .Values.client.service.nodePort }}
+  type: NodePort

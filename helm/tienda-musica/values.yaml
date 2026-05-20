@@ -1,0 +1,47 @@
+# Valores globales para el Chart de la Tienda de Música
+global:
+  namespace: tienda-musica
+  vpsIp: "187.33.146.27"
+
+# Configuración del volumen persistente para SQLite
+database:
+  pvc:
+    name: sqlite-pvc
+    storage: 1Gi
+    storageClassName: "" # Déjalo vacío para usar el StorageClass predeterminado de tu cluster (k3s, microk8s, etc.)
+
+# Configuración del Backend (NestJS)
+server:
+  replicaCount: 1
+  image:
+    repository: tienda-musica-server
+    tag: latest
+    pullPolicy: IfNotPresent
+  containerPort: 3000
+  service:
+    port: 80
+    nodePort: 30082
+  env:
+    nodeEnv: production
+    databasePath: "/app/data/database.sqlite"
+
+# Configuración del Frontend (Next.js)
+client:
+  replicaCount: 1
+  image:
+    repository: tienda-musica-client
+    tag: latest
+    pullPolicy: IfNotPresent
+  containerPort: 3000
+  service:
+    port: 80
+    nodePort: 30081
+  env:
+    nodeEnv: production
+
+# Configuración del Ingress para enrutamiento por dominio
+ingress:
+  enabled: true
+  hosts:
+    - nevermindthemusic.es
+    - www.nevermindthemusic.es
